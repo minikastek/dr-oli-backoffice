@@ -1,0 +1,244 @@
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(12, 13, 15, 0.45);
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+}
+
+.modal {
+  width: min(100%, 560px);
+  max-height: min(90vh, 720px);
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
+  overflow: hidden;
+}
+
+.modal__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.15rem 1.25rem;
+  border-bottom: 1px solid #e8ecf0;
+}
+
+.modal__head h2 {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.modal__head p {
+  margin: 0.2rem 0 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.modal__close {
+  border: 0;
+  background: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--muted);
+  padding: 0.15rem 0.35rem;
+}
+
+.modal__close:hover {
+  color: var(--ink);
+}
+
+.modal__tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid #e8ecf0;
+  padding: 0 1.25rem;
+}
+
+.modal__tabs button {
+  border: 0;
+  background: none;
+  padding: 0.75rem 1rem;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+
+.modal__tabs button.is-active {
+  color: var(--ink);
+  border-bottom-color: var(--gold);
+}
+
+.modal__body {
+  padding: 1.15rem 1.25rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.modal__hint {
+  margin: 0 0 1rem;
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.modal__empty {
+  margin: 0.5rem 0 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.modal__foot {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  padding: 1rem 1.25rem;
+  border-top: 1px solid #e8ecf0;
+  background: #fafbfc;
+}
+
+.btn-primary {
+  border: 0;
+  background: var(--ink);
+  color: #fff;
+  padding: 0.55rem 1rem;
+  border-radius: 4px;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: #16324f;
+}
+
+.schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.schedule-table th,
+.schedule-table td {
+  padding: 0.5rem 0.4rem;
+  text-align: left;
+  border-bottom: 1px solid #eef1f4;
+}
+
+.schedule-table th {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.schedule-table input[type='time'] {
+  font: inherit;
+  padding: 0.35rem 0.4rem;
+  border: 1px solid #c9d0d8;
+  border-radius: 4px;
+  width: 100%;
+  max-width: 7rem;
+}
+
+.schedule-table input[type='time']:disabled {
+  opacity: 0.45;
+}
+
+.absence-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.absence-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.absence-form__note {
+  grid-column: 1 / -1;
+}
+
+.absence-form input {
+  font: inherit;
+  font-weight: 400;
+  padding: 0.55rem 0.65rem;
+  border: 1px solid #c9d0d8;
+  border-radius: 4px;
+}
+
+.absence-form .btn-primary {
+  grid-column: 1 / -1;
+  justify-self: start;
+}
+
+.absence-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.absence-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.65rem 0.75rem;
+  background: #f8f9fb;
+  border: 1px solid #e8ecf0;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.absence-list li div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.absence-list li span {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.absence-list button {
+  border: 0;
+  background: none;
+  color: var(--danger);
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.absence-list button:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 520px) {
+  .absence-form {
+    grid-template-columns: 1fr;
+  }
+}

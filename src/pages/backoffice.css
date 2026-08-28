@@ -1,0 +1,460 @@
+.page__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.page__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.page__year {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--ink);
+  min-width: 3.5rem;
+  text-align: center;
+}
+
+.btn-ghost {
+  border: 1px solid #c9d0d8;
+  background: #fff;
+  color: var(--text);
+  padding: 0.45rem 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.9rem;
+}
+
+.btn-ghost:hover {
+  border-color: var(--gold);
+  color: var(--ink);
+}
+
+.year-calendar {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.month-card {
+  background: #fff;
+  border: 1px solid #d7dde5;
+  border-radius: 6px;
+  padding: 0.85rem;
+}
+
+.month-card h3 {
+  margin: 0 0 0.65rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.month-card__weekdays,
+.month-card__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.2rem;
+}
+
+.month-card__weekdays span {
+  text-align: center;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--muted);
+  padding-bottom: 0.25rem;
+}
+
+.month-card__day {
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  font-size: 0.72rem;
+  border-radius: 3px;
+  color: var(--text);
+}
+
+.month-card__day.is-empty {
+  visibility: hidden;
+}
+
+.month-card__day.is-today {
+  background: var(--ink);
+  color: #fff;
+  font-weight: 600;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.toolbar--filters input[type='search'] {
+  flex: 1 1 220px;
+}
+
+.toolbar input,
+.toolbar select {
+  font: inherit;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid #c9d0d8;
+  border-radius: 4px;
+  background: #fff;
+  color: var(--text);
+}
+
+.toolbar input:focus,
+.toolbar select:focus {
+  outline: 2px solid color-mix(in srgb, var(--gold) 50%, transparent);
+  border-color: var(--gold);
+}
+
+.toolbar__count {
+  margin-left: auto;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.table-wrap {
+  overflow-x: auto;
+  background: #fff;
+  border: 1px solid #d7dde5;
+  border-radius: 6px;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+.data-table th,
+.data-table td {
+  padding: 0.75rem 0.9rem;
+  text-align: left;
+  border-bottom: 1px solid #e8ecf0;
+}
+
+.data-table th {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  background: #fafbfc;
+}
+
+.data-table tbody tr:hover {
+  background: #f8f9fb;
+}
+
+.data-table__empty {
+  text-align: center;
+  color: var(--muted);
+  padding: 2rem !important;
+}
+
+.mono {
+  font-family: ui-monospace, monospace;
+  font-size: 0.85em;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.badge--pendiente {
+  background: #fff4e5;
+  color: #9a6700;
+}
+
+.badge--en_tramite {
+  background: #e8f0fe;
+  color: #1a4fa3;
+}
+
+.badge--cerrado {
+  background: #e6f4ea;
+  color: #1e6b3a;
+}
+
+.badge--archivado {
+  background: #f0f0f0;
+  color: #5b6b7c;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.info-card {
+  background: #fff;
+  border: 1px solid #d7dde5;
+  border-radius: 6px;
+  padding: 1.1rem 1rem;
+  border-top: 3px solid var(--gold);
+}
+
+.info-card h3 {
+  margin: 0 0 0.35rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.info-card__meta {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+@media (max-width: 760px) {
+  .toolbar__count {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+/* —— Abogados: listado + detalle —— */
+
+.lawyers-layout {
+  display: grid;
+  grid-template-columns: minmax(220px, 280px) 1fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.lawyers-list {
+  background: #fff;
+  border: 1px solid #d7dde5;
+  border-radius: 6px;
+  padding: 0.75rem 0;
+}
+
+.lawyers-list__title {
+  margin: 0 0 0.5rem;
+  padding: 0 1rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.lawyers-list ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.lawyers-list button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.15rem;
+  width: 100%;
+  border: 0;
+  border-left: 3px solid transparent;
+  background: none;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  font: inherit;
+}
+
+.lawyers-list button:hover {
+  background: #f5f6f8;
+}
+
+.lawyers-list button.is-selected {
+  background: color-mix(in srgb, var(--gold) 12%, #fff);
+  border-left-color: var(--gold);
+}
+
+.lawyers-list__name {
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--ink);
+}
+
+.lawyers-list__spec {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.lawyer-detail {
+  background: #fff;
+  border: 1px solid #d7dde5;
+  border-radius: 6px;
+  padding: 1.25rem;
+}
+
+.lawyer-detail__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e8ecf0;
+}
+
+.lawyer-detail__head h2 {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.lawyer-detail__head p {
+  margin: 0.25rem 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.lawyer-detail__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.detail-block {
+  background: #fafbfc;
+  border: 1px solid #e8ecf0;
+  border-radius: 6px;
+  padding: 1rem;
+}
+
+.detail-block--full {
+  grid-column: 1 / -1;
+}
+
+.detail-block h3 {
+  margin: 0 0 0.75rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.detail-block__summary {
+  margin: 0 0 0.65rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.detail-block__muted {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.detail-dl {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.detail-dl dt {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  margin-bottom: 0.15rem;
+}
+
+.detail-dl dd {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--text);
+}
+
+.schedule-summary {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.schedule-summary li {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: 0.88rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid #eef1f4;
+}
+
+.schedule-summary li:last-child {
+  border-bottom: 0;
+}
+
+.schedule-summary li.is-off {
+  opacity: 0.55;
+}
+
+.schedule-summary li span:first-child {
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.schedule-summary li span:last-child {
+  color: var(--muted);
+}
+
+.absence-summary {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.absence-summary li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding: 0.55rem 0.65rem;
+  background: #fff;
+  border: 1px solid #e8ecf0;
+  border-radius: 4px;
+  font-size: 0.88rem;
+}
+
+.absence-summary li span {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+@media (max-width: 900px) {
+  .lawyers-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .lawyer-detail__grid {
+    grid-template-columns: 1fr;
+  }
+}
