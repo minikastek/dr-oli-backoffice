@@ -7,7 +7,7 @@ import {
 } from 'react'
 
 type User = {
-  id: number
+  id: string | number
   email: string
   name: string
   role: string
@@ -22,7 +22,8 @@ type AuthContextValue = {
 
 const AuthContext = createContext<AuthContextValue | null>(null)
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
+// sin barra final: evita //api/... (404 en Express)
+const API_URL = (import.meta.env.VITE_API_URL || 'http://localhost:3000').replace(/\/+$/, '')
 
 const TOKEN_KEY = 'olilawyer_token'
 const USER_KEY = 'olilawyer_user'
