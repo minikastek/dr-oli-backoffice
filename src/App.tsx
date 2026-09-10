@@ -6,6 +6,7 @@ import CalendarPage from './pages/CalendarPage'
 import ClientsPage from './pages/ClientsPage'
 import LawyersPage from './pages/LawyersPage'
 import CasesPage from './pages/CasesPage'
+import AppointmentsPage from './pages/AppointmentsPage'
 import type { ReactNode } from 'react'
 
 function PrivateRoute({ children }: { children: ReactNode }) {
@@ -32,6 +33,7 @@ export default function App() {
             <Route path="calendario" element={<CalendarPage />} />
             <Route path="clientes" element={<ClientsPage />} />
             <Route path="abogados" element={<LawyersPage />} />
+            <Route path="turnos" element={<AppointmentsPage />} />
             <Route path="casos" element={<CasesPage />} />
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />

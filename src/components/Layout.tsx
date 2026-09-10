@@ -6,6 +6,7 @@ const links = [
   { to: '/calendario', label: 'Calendario' },
   { to: '/clientes', label: 'Clientes' },
   { to: '/abogados', label: 'Abogados' },
+  { to: '/turnos', label: 'Turnos' },
   { to: '/casos', label: 'Casos' },
 ]
 

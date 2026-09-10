@@ -1,24 +1,57 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import AvailabilityModal from '../components/AvailabilityModal'
+import { useApi, type ApiAppointment, type ApiLawyer } from '../lib/api'
 import { StatusBadge } from '../components/StatusBadge'
 import {
   casesByLawyer,
   clientById,
   clientFullName,
   formatDateRange,
-  lawyers as initialLawyers,
   scheduleSummary,
   type Lawyer,
+  type Weekday,
 } from '../data/mock'
 import { WEEKDAY_LABEL } from '../data/mock'
 import './backoffice.css'
 
+function toLawyer(a: ApiLawyer): Lawyer {
+  return {
+    id: a.id,
+    name: a.name,
+    specialty: a.specialty,
+    email: a.email,
+    phone: a.phone,
+    matricula: a.matricula,
+    weeklySchedule: a.weeklySchedule.map((s) => ({
+      day: s.day as Weekday,
+      enabled: s.enabled,
+      from: s.from,
+      to: s.to,
+    })),
+    unavailableRanges: a.unavailableRanges,
+  }
+}
+
 export default function LawyersPage() {
-  const [list, setList] = useState<Lawyer[]>(() =>
-    structuredClone(initialLawyers),
-  )
-  const [selectedId, setSelectedId] = useState<string>(initialLawyers[0]?.id ?? '')
+  const api = useApi()
+  const [list, setList] = useState<Lawyer[]>([])
+  const [appointments, setAppointments] = useState<ApiAppointment[]>([])
+  const [selectedId, setSelectedId] = useState('')
   const [modalLawyerId, setModalLawyerId] = useState<string | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
+
+  useEffect(() => {
+    Promise.all([api.getLawyers(), api.getAppointments()])
+      .then(([lawyersRes, apptRes]) => {
+        const mapped = lawyersRes.lawyers.map(toLawyer)
+        setList(mapped)
+        setAppointments(apptRes.appointments)
+        if (mapped[0]) setSelectedId(mapped[0].id)
+      })
+      .catch((e) => setError(e instanceof Error ? e.message : 'Error'))
+      .finally(() => setLoading(false))
+  }, [])
 
   const selected = useMemo(
     () => list.find((l) => l.id === selectedId) ?? list[0],
@@ -30,17 +63,39 @@ export default function LawyersPage() {
     [selected],
   )
 
+  const lawyerAppointments = useMemo(
+    () => (selected ? appointments.filter((a) => a.lawyerId === selected.id) : []),
+    [appointments, selected],
+  )
+
   const modalLawyer = modalLawyerId ? list.find((l) => l.id === modalLawyerId) : null
 
-  function saveLawyer(updated: Lawyer) {
+  async function saveLawyer(updated: Lawyer) {
+    await api.saveAvailability(updated.id, {
+      weeklySchedule: updated.weeklySchedule,
+      unavailableRanges: updated.unavailableRanges.map(({ from, to, note }) => ({
+        from,
+        to,
+        note,
+      })),
+    })
     setList((prev) => prev.map((l) => (l.id === updated.id ? updated : l)))
   }
 
-  if (!selected) {
+  if (loading) {
     return (
       <section className="page">
         <h1>Abogados</h1>
-        <p>No hay abogados cargados.</p>
+        <p className="booking-loading">Cargando…</p>
+      </section>
+    )
+  }
+
+  if (error || !selected) {
+    return (
+      <section className="page">
+        <h1>Abogados</h1>
+        <p className="booking-error">{error || 'No hay abogados cargados.'}</p>
       </section>
     )
   }
@@ -50,7 +105,7 @@ export default function LawyersPage() {
       <div className="page__head">
         <div>
           <h1>Abogados</h1>
-          <p>Seleccioná un profesional para ver sus datos, casos y disponibilidad.</p>
+          <p>Seleccioná un profesional para ver sus datos, turnos y disponibilidad.</p>
         </div>
       </div>
 
@@ -118,6 +173,48 @@ export default function LawyersPage() {
                   </li>
                 ))}
               </ul>
+            </section>
+
+            <section className="detail-block detail-block--full">
+              <h3>Turnos asignados ({lawyerAppointments.length})</h3>
+              {lawyerAppointments.length === 0 ? (
+                <p className="detail-block__muted">No tiene turnos próximos.</p>
+              ) : (
+                <div className="table-wrap">
+                  <table className="data-table">
+                    <thead>
+                      <tr>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th>Cliente</th>
+                        <th>Email</th>
+                        <th>Tipo</th>
+                        <th>Estado</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {lawyerAppointments.map((a) => (
+                        <tr key={a.id}>
+                          <td>
+                            {new Date(`${a.date}T12:00:00`).toLocaleDateString('es-AR', {
+                              weekday: 'short',
+                              day: 'numeric',
+                              month: 'short',
+                            })}
+                          </td>
+                          <td>{a.time}</td>
+                          <td>{a.clientName}</td>
+                          <td>{a.email}</td>
+                          <td>{a.type === 'consulta' ? 'Online' : 'Presencial'}</td>
+                          <td>
+                            <span className="badge badge--confirmado">{a.status}</span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
             </section>
 
             <section className="detail-block detail-block--full">

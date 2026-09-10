@@ -198,6 +198,11 @@
   color: #5b6b7c;
 }
 
+.badge--confirmado {
+  background: #e6f4ea;
+  color: #1e6b3a;
+}
+
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
